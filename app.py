@@ -10,26 +10,18 @@ from dash import Dash, html
 import dash_cytoscape as cyto
 import math
 import collections
+
 ##global
 cyto.load_extra_layouts()
 app = Dash()
 server = app.server
 compare = lambda x, y: collections.Counter(x) == collections.Counter(y)
-
-#pallete = ['#f8766d','#f17d51','#e98429','#de8a00','#d49200','#c89800','#ba9e00','#aaa300','#97a800','#82ad00','#67b100','#3fb500','#00b929','#00bc4f','#00be6b','#00bf82','#00c097','#00c1aa','#00c0bc','#00becd','#00bbdc','#00b7e9','#00b1f4','#00aafe','#30a2ff','#7299ff','#988fff','#b584ff','#cc7aff','#de70f9','#ec68ee','#f663e1','#fd61d2','#ff61c1','#ff64af','#ff699b','#fd6f85']
-#pallete = ['#e6194B', '#3cb44b', '#ffe119', '#4363d8', '#f58231', '#911eb4', '#42d4f4', '#f032e6', '#bfef45', '#fabed4', '#469990', '#dcbeff', '#9A6324', '#fffac8', '#800000', '#aaffc3', '#808000', '#ffd8b1', '#000075', '#a9a9a9']
 pallete=['#00008b','#0000ff','#008000','#00bfff','#00ff00','#00ff7f','#20b2aa','#2f4f4f','#483d8b','#556b2f','#6495ed','#778899','#7b68ee','#7fffd4','#808000','#8b0000','#8b008b','#8fbc8f','#9400d3','#98fb98','#a0522d','#adff2f','#afeeee','#c71585','#d2b48c','#da70d6','#daa520','#db7093','#dc143c','#dda0dd','#f0e68c','#ff00ff','#ff4500','#ff7f50','#ff8c00','#ffb6c1','#ffff00']
-#pallete=['#000080','#0000ff','#006400','#00bfff','#00fa9a','#00ffff','#6a5acd','#7fff00','#800080','#808000','#808080','#8a2be2','#8b4513','#8fbc8f','#9acd32','#add8e6','#b03060','#dc143c','#ee82ee','#ff0000','#ff00ff','#ff1493','#ff7f50','#ffa500','#ffb6c1','#ffdead','#ffff00']
-edge_colors = {'lisc': '#304f40', 'korzen':'#836953', 'lodyga':'#cc5200', 'ziarniak': '#cfcfc4'}
-
-#colors_czesci_roslin = ["#f8766d","#d89000", "#a3a500", "#39b600", "#00bf7d", "#00bfc4", "#00b0f6", "#9590ff", "#e76bf3", "#ff62bc"]
 
 data_all = pd.read_csv("data.csv")
 spiecies_all = data_all['gatunek'].unique()
 spiecies_all.sort()
 sp_colors = {}
-# for sp, co in zip(spiecies_all, pallete):
-#     sp_colors[sp] = co
 
 ###
 data_g0 = data_all.loc[data_all['Pokolenie'] == 'G0']
@@ -192,8 +184,7 @@ def checkGroup():
             groups[k] = value
     
     groupColors = {}
-    possibleGroups = getPossible() #getCombinations(all_names[key]) 
-    #list(set(groups.values()))
+    possibleGroups = getPossible()
     possibleGroups.sort()
     for n in all_names[key]:
         if n in possibleGroups:
@@ -208,21 +199,7 @@ def checkGroup():
 
 posib = getCombinations(all_names[key])
 groups, groupColors = checkGroup()
-# ###czesc rosliny jako glowne nody
-# elements = [{'data':{'id':'lisc', 'label':"Leaves", 'url':'https://i.postimg.cc/Pxz6L3HW/leaves.png', 'color':groupColors["lisc"]},
-#                    'position': {'x': 100, 'y': 100},
-#                    'classes': 'center'}, 
-#                   {'data':{'id':'korzen', 'label':"Roots", 'url':'https://i.postimg.cc/7YLB6nWz/roots.png', 'color':groupColors["korzen"]},
-#                    'position': {'x': -100, 'y': 100},
-#                    'classes': 'center'},
-#                   {'data':{'id':'lodyga', 'label':"Stems", 'url':'https://i.postimg.cc/cCxFfR1V/stem.png', 'color':groupColors["lodyga"]},
-#                    'position': {'x': 100, 'y': -100},
-#                    'classes': 'center'},
-#                   {'data':{'id': 'ziarniak', 'label': "Grains", 'url':'https://i.postimg.cc/d0SsbBp9/grain.png', 'color':groupColors["ziarniak"]},
-#                    'position': {'x': -100, 'y': -100},
-#                    'classes': 'center'}]
-    
-##ustalanie polozenia grup
+
 def getCenterPositions(): #bingAI
     radius = 150
     positions = {}
@@ -255,24 +232,6 @@ def getCenterPositions(): #bingAI
             positions[g]['x'] = math.floor(x)
             positions[g]['y'] = math.floor(y)
     return positions
-    ##nieudany koncept?
-    # multiGroupsNum = len(possibleGroups) - len(all_names[key])
-    # i = -1
-    # for g in possibleGroups:
-    #     if '|' in g:
-    #         inGroups = g.split('|')
-    #         x = 0
-    #         y = 0
-    #         i += 1
-    #         for ig in inGroups:
-    #             print(positions[ig])
-    #             x += abs(positions[ig]['x'])
-    #             y += (positions[ig]['y'])
-    #         x /= len(inGroups)
-    #         y /= len(inGroups)
-    #         angle = 2 * math.pi * i / multiGroupsNum
-    #         positions[g]['x'] = abs(math.floor(x)) * math.cos(angle)
-    #         positions[g]['y'] = 10 + abs(math.floor(y)) * math.sin(angle)
 
 ###dla Gatunkow
 def getSpieciesNodesPositions(centerPositins):
@@ -466,6 +425,3 @@ app.layout = html.Div([
 ])
 
 app.run(debug=True, host='0.0.0.0', port = '10000')
-#["random","preset","circle","concentric","grid","breadthfirst","cose","cose-bilkent","fcose","cola","euler","spread","dagre","klay"]
-#                    'background-fit': 'cover',
-#                    'background-image': 'data(url)',
