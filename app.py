@@ -8,8 +8,7 @@ import matplotlib
 import dash
 from dash import Dash, html
 import dash_cytoscape as cyto
-import base64
-import math 
+import math
 import collections
 ##global
 cyto.load_extra_layouts()
