@@ -14,6 +14,7 @@ import collections
 ##global
 cyto.load_extra_layouts()
 app = Dash()
+server = app.server
 compare = lambda x, y: collections.Counter(x) == collections.Counter(y)
 
 #pallete = ['#f8766d','#f17d51','#e98429','#de8a00','#d49200','#c89800','#ba9e00','#aaa300','#97a800','#82ad00','#67b100','#3fb500','#00b929','#00bc4f','#00be6b','#00bf82','#00c097','#00c1aa','#00c0bc','#00becd','#00bbdc','#00b7e9','#00b1f4','#00aafe','#30a2ff','#7299ff','#988fff','#b584ff','#cc7aff','#de70f9','#ec68ee','#f663e1','#fd61d2','#ff61c1','#ff64af','#ff699b','#fd6f85']
