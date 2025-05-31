@@ -24,7 +24,7 @@ edge_colors = {'lisc': '#304f40', 'korzen':'#836953', 'lodyga':'#cc5200', 'ziarn
 
 #colors_czesci_roslin = ["#f8766d","#d89000", "#a3a500", "#39b600", "#00bf7d", "#00bfc4", "#00b0f6", "#9590ff", "#e76bf3", "#ff62bc"]
 
-data_all = pd.read_csv("OPUS14_dane_do_garfiki_modified.csv")
+data_all = pd.read_csv("data.csv")
 spiecies_all = data_all['gatunek'].unique()
 spiecies_all.sort()
 sp_colors = {}
