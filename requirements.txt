@@ -2,5 +2,4 @@ dash==3.0.4
 pandas
 numpy
 dash_cytoscape
-collections
 gunicorn
