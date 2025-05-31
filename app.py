@@ -404,7 +404,6 @@ labelsColors = sorted_dict = dict(sorted(labelsColors.items()))
 aaa = ""
 for i in spieciesinCurrentData:
     aaa += spiecieID[i] +". "+i +" "
-print(aaa)
 ##main app
 app.layout = html.Div([
     html.H1([graphTitle], style={'text-align' : 'center'}),
@@ -466,7 +465,7 @@ app.layout = html.Div([
     )
 ])
 
-app.run(debug=True)
+app.run(debug=True, host='0.0.0.0', port = '10000')
 #["random","preset","circle","concentric","grid","breadthfirst","cose","cose-bilkent","fcose","cola","euler","spread","dagre","klay"]
 #                    'background-fit': 'cover',
 #                    'background-image': 'data(url)',
